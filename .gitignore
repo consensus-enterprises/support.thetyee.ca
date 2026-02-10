@@ -6,7 +6,7 @@ schema.conf
 sqitch.conf
 codekit-config.json
 NOTES.md
-local
+#local
 cpanfile.snapshot
 /.perl-version
 /cpanfile.snapshot

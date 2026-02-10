@@ -1,0 +1,1 @@
+{"provides":{"Config::GitLike::Git":{"file":"lib/Config/GitLike/Git.pm"},"Config::GitLike::Cascaded":{"file":"lib/Config/GitLike/Cascaded.pm"},"Config::GitLike":{"version":"1.15","file":"lib/Config/GitLike.pm"}},"target":"Config::GitLike","version":"1.15","name":"Config::GitLike","dist":"Config-GitLike-1.15","pathname":"A/AL/ALEXMV/Config-GitLike-1.15.tar.gz"}

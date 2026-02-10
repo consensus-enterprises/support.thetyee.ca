@@ -1,0 +1,17 @@
+#!/var/home/tyeeapps/perl5/perlbrew/perls/perl-5.16.2/bin/perl -w -CAS
+
+eval 'exec /var/home/tyeeapps/perl5/perlbrew/perls/perl-5.16.2/bin/perl -w -CAS -S $0 ${1+"$@"}'
+    if 0; # not running under some shell
+
+use POSIX qw(setlocale);
+BEGIN {
+    if ($^O eq 'MSWin32') {
+        require Win32::Locale;
+        setlocale POSIX::LC_ALL, Win32::Locale::get_locale();
+    } else {
+        setlocale POSIX::LC_ALL, '';
+    }
+}
+use App::Sqitch;
+
+exit App::Sqitch->go;
