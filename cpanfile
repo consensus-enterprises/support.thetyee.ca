@@ -1,5 +1,6 @@
 requires 'Modern::Perl';
 requires 'utf8::all';
+requires 'DateTime';
 requires 'DateTime::Format::Pg';
 requires 'Mojolicious', '==4.50';
 requires 'Try::Tiny', '0';
@@ -18,3 +19,11 @@ requires 'Crypt::Blowfish', '';
 requires 'Email::Valid', '';
 requires 'Data::Dumper::HTML', '';
 requires 'Mojolicious::Plugin::Mail', '==1.2';
+requires 'DBIx::Class::Schema';
+requires 'Mojo::Base';
+requires 'Sub::Name';
+requires 'Crypt::URandom';
+requires 'JSON::XS';
+requires 'XML::Hash';
+requires 'XML::Parser';
+requires 'Sub::Util';
