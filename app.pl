@@ -4,6 +4,7 @@ use FindBin;
 use lib "$FindBin::Bin/local/lib/perl5";
 
 use Mojolicious::Lite;
+use Mojo::Log;
 use Mojo::UserAgent;
 use Data::Dumper;
 use DateTime;
@@ -1364,6 +1365,7 @@ get '/plans' => sub {    # List plans; Not used
 };
 
 app->secret( $config->{'app_secret'} );
+app->log( Mojo::Log->new( path => 'support.app.log', level => 'debug' ) );
 app->start;
 
 __DATA__
