@@ -83,12 +83,12 @@ __PACKAGE__->table("transactions");
 =head2 city
 
   data_type: 'text'
-  is_nullable: 0
+  is_nullable: 1
 
 =head2 state
 
   data_type: 'text'
-  is_nullable: 0
+  is_nullable: 1
 
 =head2 zip
 
@@ -98,7 +98,7 @@ __PACKAGE__->table("transactions");
 =head2 country
 
   data_type: 'text'
-  is_nullable: 0
+  is_nullable: 1
 
 =head2 pref_anonymous
 
@@ -239,13 +239,13 @@ __PACKAGE__->add_columns(
   "plan_code",
   { data_type => "text", is_nullable => 1 },
   "city",
-  { data_type => "text", is_nullable => 0 },
+  { data_type => "text", is_nullable => 1 },
   "state",
-  { data_type => "text", is_nullable => 0 },
+  { data_type => "text", is_nullable => 1 },
   "zip",
   { data_type => "text", is_nullable => 0 },
   "country",
-  { data_type => "text", is_nullable => 0 },
+  { data_type => "text", is_nullable => 1 },
   "pref_anonymous",
   { data_type => "text", is_nullable => 1 },
   "pref_frequency",
@@ -289,8 +289,6 @@ __PACKAGE__->add_columns(
   "on_behalf_of_name_last",
   { data_type => "text", is_nullable => 1 },
   "address1",
-  { data_type => "text", is_nullable => 1 },
-  "fifteenth_year_mailme",
   { data_type => "text", is_nullable => 1 },
 );
 
