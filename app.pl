@@ -57,6 +57,10 @@ helper find_or_new => sub {
     my $original_params = shift;
     my $dbh  = $self->schema();
     my $result;
+
+    #DSL
+    $self->app->log->debug("FIND_OR_NEW");
+    $self->app->log->debug( Dumper $doc );
     
     try {
         $result = $dbh->txn_do(
@@ -73,6 +77,11 @@ helper find_or_new => sub {
     catch {
         $self->app->log->warn( $_ );
     };
+
+    #DSL
+    $self->app->log->debug("FIND_OR_NEW AFTER txn_do");
+
+    $self->app->log->debug($doc);
     
     my $hashref = {};
     
@@ -96,6 +105,11 @@ helper find_or_new => sub {
 
     
     my $drupal_endpoint = $config->{'drupal_endpoint'};
+
+    #DSL
+    $self->app->log->debug("DRUPAL ENDPOINT");
+    $self->app->log->debug($drupal_endpoint);
+
       my $res = $ua->post( $config->{'drupal_endpoint'} => {  Accept => '*/*' } => json => $hashref);
         $self->app->log->info("return from drupal dump:");
         $self->app->log->info( Dumper($res));
@@ -191,6 +205,8 @@ helper recurly_get_active_subs => sub {
        my $ub = Mojo::UserAgent->new;
 my $collection = $dom->find('subscription');
 my @elements = $collection->each;
+#DSL
+$self->app->log->debug(@elements);
 if ((scalar @elements) >= 2 ) {
  $ub->post($config->{'notify_url'} => json => {text => "Note: Count of subs for someone who just subscribed, account code $account_code are greater than 1, they are " . (scalar @elements) });
 }
@@ -609,6 +625,9 @@ post '/get_update_link' => sub {
 post '/process_transaction' => sub {
     my $self = shift;
 
+    #DSL
+    $self->app->log->debug("Hit /process_transaction");
+
     # Capture values from flash
     my $campaign     = $self->flash( 'campaign' );
     my $appeal_code  = $self->flash( 'appeal_code' );
@@ -696,6 +715,11 @@ post '/process_transaction' => sub {
                 }
             }
         };
+
+        #DSL
+        $self->app->log->debug("SUBSCRIPTION");
+        $self->app->log->debug( Dumper $transaction );
+
         $xmldoc->fromHash( $transaction );
         my $transxml = $xmldoc->toString;
 
@@ -946,6 +970,8 @@ get '/plans' => sub {    # List plans; Not used
 };
 
 app->secret( $config->{'app_secret'} );
+#DSL
+app->log( Mojo::Log->new( path => 'support.app.log', level => 'debug' ) );
 app->start;
 
 __DATA__
