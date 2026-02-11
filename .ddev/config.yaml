@@ -21,7 +21,7 @@ services:
       - HTTP_EXPOSE=80:15033
       - HTTPS_EXPOSE=443:15033
 corepack_enable: false
-webimage_extra_packages: [libdevel-stacktrace-perl, libdatetime-locale-perl, libxml-perl, libsession-token-perl, libcrypt-blowfish-perl, build-essential, libz-dev, postgresql, libpq-dev, libexpat1-dev, libssl-dev, libdatetime-perl]
+webimage_extra_packages: [libdevel-stacktrace-perl, libdatetime-locale-perl, libxml-perl, libsession-token-perl, libcrypt-blowfish-perl, build-essential, libz-dev, postgresql, libpq-dev, libexpat1-dev, libssl-dev, libdatetime-perl, liblist-moreutils-perl, libparams-validate-perl, libxml-simple-perl, libxml-dom-perl, libfile-slurp-perl, carton, sqitch]
 hooks:
   post-start:
     - exec: bash startDev.sh
