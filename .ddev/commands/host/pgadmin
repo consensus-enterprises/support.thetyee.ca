@@ -1,0 +1,4 @@
+#!/bin/bash
+
+#ddev-generated
+ddev launch https://pgadmin.$DDEV_HOSTNAME/

@@ -1,0 +1,61 @@
+#ddev-generated
+services:
+  pgadmin:
+    container_name: ddev-${DDEV_SITENAME}-pgadmin
+    image: dpage/pgadmin4:latest
+    restart: 'no'
+    labels:
+      com.ddev.site-name: ${DDEV_SITENAME}
+      com.ddev.approot: $DDEV_APPROOT
+    volumes:
+      - 'pgadmin-data:/var/lib/pgadmin'
+      # - './pgadmin/servers.json:/pgadmin4/servers.json'
+      # - './pgadmin/.pgpass:/home/pgadmin/.pgpass' # TODO: set `chmod 600 /home/pgadmin/.pgpass && chown pgadmin /home/pgadmin/.pgpass`
+    configs:
+      - source: servers.json
+        target: /pgadmin4/servers.json
+      - source: pgpass
+        target: /.pgpass
+    expose:
+      - '80'
+    environment:
+      - VIRTUAL_HOST=pgadmin.$DDEV_HOSTNAME
+      - HTTP_EXPOSE=80:80
+      - HTTPS_EXPOSE=443:80
+      - PGADMIN_CONFIG_SERVER_MODE=False
+      # Actually, this password is not used when the SERVER_MODE is False
+      # but have to be set.
+      - PGADMIN_DEFAULT_PASSWORD=db
+      - PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED=False
+      - PGADMIN_CONFIG_DESKTOP_USER="pgadmin@$DDEV_HOSTNAME"
+      - PGADMIN_CONFIG_ALLOW_SPECIAL_EMAIL_DOMAINS=["$DDEV_TLD"]
+      - PGADMIN_DEFAULT_EMAIL=pgadmin@$DDEV_HOSTNAME
+      - PGADMIN_DISABLE_POSTFIX=1
+    user: root
+    entrypoint: /bin/sh -c "chmod 600 /.pgpass; /entrypoint.sh;"
+    healthcheck:
+      interval: 120s
+      timeout: 5s
+      retries: 1
+    depends_on:
+      - db
+
+volumes:
+  pgadmin-data:
+
+configs:
+  pgpass:
+    # content: db:5432:*:db:db
+    content: '*:*:*:db:db'
+  servers.json:
+    content: |
+      {"Servers": {"1": {
+        "Group": "Servers",
+        "Name": "db",
+        "Host": "db",
+        "Port": 5432,
+        "MaintenanceDB": "postgres",
+        "Username": "db",
+        "PassFile": "/.pgpass",
+        "SSLMode": "prefer"
+      }}}
